@@ -1,4 +1,4 @@
-.PHONY: all clean
+.PHONY: all clean InstrumentationTest DexTainting
 
 CLASSPATH=-cp .:jars/dexlib2-2.0.5-dev.jar:jars/jsr305-1.3.9.jar:jars/util-2.0.5-dev.jar:jars/guava-18.0.jar
 
