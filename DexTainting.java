@@ -92,12 +92,17 @@ public class DexTainting {
       MutableMethodImplementation mutableImplementation = new MutableMethodImplementation(implementation);
       List<BuilderInstruction> instructions = mutableImplementation.getInstructions();
 
+      int ni_index = -1;
       for (int i = 0; i < instructions.size(); i++) {
         Instruction instruction = instructions.get(i);
-        if (instruction.getOpcode() == Opcode.NEW_INSTANCE) {
+        if (ni_index >= 0 && i == (ni_index + 2)) {
           int register = ((OneRegisterInstruction)instruction).getRegisterA();
-          mutableImplementation.addInstruction(i++,
+          mutableImplementation.addInstruction(ni_index + 2,
             new BuilderInstruction31i(Opcode.CONST_WIDE_32, register, 0));
+          ni_index = -1;
+        }
+        if (instruction.getOpcode() == Opcode.NEW_INSTANCE) {
+          ni_index = i;
         }
       }
 

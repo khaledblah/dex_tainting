@@ -12,6 +12,8 @@ public class Test {
     int c = a + b;
     System.out.println(Integer.toString(c));
     Object d = new Object();
+    Object e = new Object();
+    boolean f = d == e;
     return;
   }
 }
