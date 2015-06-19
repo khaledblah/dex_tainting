@@ -135,19 +135,10 @@ public class DexTainting {
       MutableMethodImplementation mutableImplementation = new MutableMethodImplementation(implementation);
       List<BuilderInstruction> instructions = mutableImplementation.getInstructions();
       Reference fieldRef = null;
-      // FieldReference fieldRef = null;
-      // for(Field field : classDef.getFields()) {
-      //   if (field.getDefiningClass().equals(classDef.getType())
-      //       && field.getName().equals("__taint__")) {
-      //     fieldRef = field;
-      //     break;
-      //   }
-      // }
 
       int ni_index = -1;
       int object_register = -1;
       for (int i = 0; i < instructions.size(); i++) {
-        System.out.println("ni_index: " + ni_index + ", index: " + i);
         Instruction instruction = instructions.get(i);
         if (fieldRef != null && object_register >= 0 && i == (ni_index + 2)) {
           System.out.println("add instruction");
@@ -156,15 +147,10 @@ public class DexTainting {
           object_register = -1;
         }
         if (instruction.getOpcode() == Opcode.NEW_INSTANCE) {
-          System.out.println("new-instance: " + i);
-          System.out.println("new-instance: " + instruction.getOpcode());
           BuilderInstruction21c old_instruction = (BuilderInstruction21c) instruction;
           object_register = old_instruction.getRegisterA();
           fieldRef = old_instruction.getReference();
           int ref_type = old_instruction.getReferenceType();
-          System.out.println("old_instruction: " + old_instruction.getClass().getName());
-          System.out.println("fieldRef: " + fieldRef.getClass().getName());
-          System.out.println("ref_type: " + ref_type);
           ni_index = i;
         }
       }
