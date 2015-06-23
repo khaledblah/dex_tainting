@@ -133,27 +133,27 @@ public class DexTainting {
     for (Method method: classDef.getMethods()) {
       MethodImplementation implementation = method.getImplementation();
       MutableMethodImplementation mutableImplementation = new MutableMethodImplementation(implementation);
-      List<BuilderInstruction> instructions = mutableImplementation.getInstructions();
-      Reference fieldRef = null;
+      // List<BuilderInstruction> instructions = mutableImplementation.getInstructions();
+      // Reference fieldRef = null;
 
-      int ni_index = -1;
-      int object_register = -1;
-      for (int i = 0; i < instructions.size(); i++) {
-        Instruction instruction = instructions.get(i);
-        if (fieldRef != null && object_register >= 0 && i == (ni_index + 2)) {
-          System.out.println("add instruction");
-          mutableImplementation.addInstruction(i, new BuilderInstruction22c(Opcode.IPUT, object_register, object_register, fieldRef));
-          ni_index = -1;
-          object_register = -1;
-        }
-        if (instruction.getOpcode() == Opcode.NEW_INSTANCE) {
-          BuilderInstruction21c old_instruction = (BuilderInstruction21c) instruction;
-          object_register = old_instruction.getRegisterA();
-          fieldRef = old_instruction.getReference();
-          int ref_type = old_instruction.getReferenceType();
-          ni_index = i;
-        }
-      }
+      // int ni_index = -1;
+      // int object_register = -1;
+      // for (int i = 0; i < instructions.size(); i++) {
+      //   Instruction instruction = instructions.get(i);
+      //   if (fieldRef != null && object_register >= 0 && i == (ni_index + 2)) {
+      //     System.out.println("add instruction");
+      //     mutableImplementation.addInstruction(i, new BuilderInstruction22c(Opcode.IPUT, object_register, object_register, fieldRef));
+      //     ni_index = -1;
+      //     object_register = -1;
+      //   }
+      //   if (instruction.getOpcode() == Opcode.NEW_INSTANCE) {
+      //     BuilderInstruction21c old_instruction = (BuilderInstruction21c) instruction;
+      //     object_register = old_instruction.getRegisterA();
+      //     fieldRef = old_instruction.getReference();
+      //     int ref_type = old_instruction.getReferenceType();
+      //     ni_index = i;
+      //   }
+      // }
 
       taintedMethods.add(new ImmutableMethod(
         method.getDefiningClass(),

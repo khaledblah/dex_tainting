@@ -7,15 +7,11 @@ public class Test {
   private float fieldC = 2.0f;
   private double fieldD = 3.0d;
 
-  public static class Foo {
-    public boolean bar = false;
-  }
-
   public static void main(String argv[]) {
-    int a = 0;
-    int b = 1;
-    int c = a + b;
-    System.out.println(Integer.toString(c));
+    Test a = new Test();
+    a.fieldA = 1;
+    a.fieldB = 2;
+    System.out.println(Integer.toString(a.fieldA));
     Object d = new Object();
     Foo e = new Foo();
     e.bar = true;
